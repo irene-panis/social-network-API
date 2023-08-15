@@ -20,6 +20,11 @@ connection.once('open', async () => {
     await connection.dropCollection('users');
   }
 
+  let thoughtCheck = await connection.db.listCollections({ name: 'thoughts' }).toArray();
+  if (thoughtCheck.length) {
+    await connection.dropCollection('thoughts');
+  }
+
   await User.collection.insertMany(users);
 
   console.table(users);
